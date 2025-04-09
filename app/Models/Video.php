@@ -10,7 +10,8 @@ class Video extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'slug'];
+    protected $fillable = ['title', 'description', 'slug', 'link', 'thumbnail', 'id_user'];
+
 
     public static function boot()
     {
@@ -20,4 +21,8 @@ class Video extends Model
             $video->slug = Str::slug($video->title);
         });
     }
+    public function user()
+{
+    return $this->belongsTo(User::class, 'id_user');
+}
 }

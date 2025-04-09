@@ -7,6 +7,8 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
     <style>
         html,
         body {
@@ -27,7 +29,8 @@
 </head>
 
 <body>
-    <nav class="#80cbc4 teal lighten-3">
+    <nav class="#ef5350 red lighten-1
+">
         <div class="nav-wrapper container">
             <a href="{{ route('user.index') }}" class="brand-logo center">Projeto Nefrologia</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger right">
@@ -57,12 +60,17 @@
             </ul>
 
             <!-- Dropdown Structure -->
-            <ul id="dropdown-admin" class="dropdown-content" style="top: 100% !important;">
-                <li><a href="{{ route('login.form') }}">Logar</a></li>
-                @if (Auth::check())
-                    <li><a href="{{ route('login.logout') }}">Sair</a></li>
-                @endif
-            </ul>
+            @if (Auth::check())
+                <ul id="dropdown-admin" class="dropdown-content" style="top: 100% !important;">
+                    <li><a href="{{ route('admin.cadastro') }}"style="color: #ef5350;">Cadastrar Vídeo</a></li>
+                    <li><a href="{{ route('admin.gerenciar') }}"style="color: #ef5350;">Gerenciar</a></li>
+                    <li><a href="{{ route('login.logout') }}"style="color: #ef5350;">Sair</a></li>
+                </ul>
+            @else
+                <ul id="dropdown-admin" class="dropdown-content" style="top: 100% !important;">
+                    <li><a href="{{ route('login.form') }}"style="color: #ef5350;">Logar</a></li>
+                </ul>
+            @endif
         </div>
     </nav>
 
@@ -101,18 +109,11 @@
         @yield('conteudo')
     </div>
 
-    <footer class="page-footer teal lighten-3" style="padding: 0; margin: 0;">
+    <footer class="page-footer #ef5350 red lighten-1" style="padding: 0; margin: 0;">
         <div style="display: flex; justify-content: center; align-items: center; padding: 8px 0; width: 100%;">
             <h6 class="white-text" style="margin: 0; font-size: 1rem;">
                 Projeto desenvolvido pelo IFPR
             </h6>
-        </div>
-        <div
-            style="background-color: #004d40; display: flex; justify-content: center; align-items: center; padding: 4px 0; width: 100%;">
-            <p class="white-text" style="margin: 0; font-size: 0.8rem;">
-                © 2014 Copyright Text
-                <a class="grey-text text-lighten-4" href="" style="font-size: 0.8rem;">IFPR</a>
-            </p>
         </div>
     </footer>
 
@@ -131,6 +132,12 @@
 
             var collapsibles = document.querySelectorAll('.collapsible');
             M.Collapsible.init(collapsibles);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            M.Modal.init(elems);
         });
     </script>
 </body>

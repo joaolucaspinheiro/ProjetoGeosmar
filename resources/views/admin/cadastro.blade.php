@@ -1,45 +1,78 @@
 @extends('layout')
-@section('title', 'Vídeo')
+@section('title', 'Cadastro')
 @section('conteudo')
     <style>
-        /* Centraliza o formulário horizontalmente */
         .form-container {
             display: flex;
             justify-content: center;
             margin: 40px auto;
-            /* Espaço superior e inferior reduzido */
         }
 
-        /* Formulário com container menor */
         .custom-form {
             background-color: #f5f5f5;
-            padding: 8px 12px;
-            /* Menos padding interno */
+            padding: 16px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
         }
 
-        /* Ícones menores */
-        .custom-form i.material-icons.prefix {
-            font-size: 16px;
+        .message-box {
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Botão com ícone menor */
-        .custom-form button i.material-icons.right {
-            font-size: 16px;
+        .error-message {
+            background-color: #ffebee;
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+
+        .success-message {
+            background-color: #e8f5e9;
+            color: #388e3c;
+            border: 1px solid #388e3c;
+        }
+
+        .input-field input {
+            position: relative;
+            z-index: 1;
         }
     </style>
 
+    {{-- Exibe mensagens de erro --}}
+    @if ($errors->any())
+        <div class="message-box error-message">
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    {{-- Exibe mensagem de sucesso --}}
+    @if (session('success'))
+        <div class="message-box success-message">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="form-container">
         <div class="custom-form">
-            <form class="col s12">
+            <form class="col s12" method="post" action="{{ route('admin.cadastro.post') }}">
+                @csrf
                 <!-- Campo Link -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">link</i>
-                        <input id="link" type="text" class="validate" placeholder="Insira o link">
+                        <input type="text" name="link" value="{{ old('link') }}" required>
                         <label for="link">Link</label>
                     </div>
                 </div>
@@ -47,23 +80,22 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">title</i>
-                        <input id="title" type="text" class="validate" placeholder="Insira o título">
-                        <label for="title">Título</label>
+                        <input id="title" name="title" type="text" class="validate" value="{{ old('title') }}">
+                        <label for="title" class="active">Título</label>
                     </div>
                 </div>
                 <!-- Campo Descrição com textarea -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">description</i>
-                        <textarea id="description" class="materialize-textarea validate" placeholder="Insira a descrição"
-                            style="min-height: 100px;"></textarea>
-                        <label for="description">Descrição</label>
+                        <input id="description" name="description" type="text" class="validate" value="{{ old('description') }}">
+                        <label for="description" class="active">Descrição</label>
                     </div>
                 </div>
                 <!-- Botão Enviar -->
                 <div class="row">
                     <div class="col s12 center-align">
-                        <button class="btn waves-effect waves-light teal lighten-3" type="submit" name="action">
+                        <button class="btn waves-effect waves-light #ef5350 red lighten-1" type="submit" name="action">
                             Enviar
                             <i class="material-icons right">send</i>
                         </button>

@@ -72,7 +72,7 @@
             <!-- Botão Enviar -->
             <div class="row">
                 <div class="col s12 center-align">
-                    <button class="btn waves-effect waves-light teal lighten-3" type="submit" name="action">
+                    <button class="btn waves-effect waves-light #ef5350 red lighten-1" type="submit" name="action">
                         Entrar
                         <i class="material-icons right">send</i>
                     </button>
